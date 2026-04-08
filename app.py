@@ -1368,6 +1368,20 @@ not just near existing monitoring stations.
             "GradientBoosting":  {"rmse": 15.52, "mae": 11.89},
             "XGBoost":           {"rmse": 12.78, "mae": 9.97},
         },
+        "so2": {
+            "Ridge":             {"rmse": 11.2325, "mae": 8.4019},
+            "ElasticNet":        {"rmse": 12.1758, "mae": 8.5394},
+            "RandomForest":      {"rmse": 10.4528, "mae": 6.8125},  # ← best
+            "GradientBoosting":  {"rmse": 14.7894, "mae": 9.6541},
+            "XGBoost":           {"rmse": 13.8547, "mae": 9.5033},
+        },
+        "co": {
+            "Ridge":             {"rmse": 0.4190, "mae": 0.3082},
+            "ElasticNet":        {"rmse": 0.4186, "mae": 0.2857},   # ← best
+            "RandomForest":      {"rmse": 0.4274, "mae": 0.2992},
+            "GradientBoosting":  {"rmse": 0.4559, "mae": 0.3205},
+            "XGBoost":           {"rmse": 0.4288, "mae": 0.2934},
+        },
     }
 
     # Best model per pollutant
@@ -1379,7 +1393,7 @@ not just near existing monitoring stations.
     # ── Best-model summary table ───────────────────────────────────────────────
     st.markdown("#### Best Model per Pollutant")
     _best_rows = []
-    _pol_labels = {"pm25": "PM₂.₅ (µg/m³)", "pm10": "PM₁₀ (µg/m³)", "no2": "NO₂ (µg/m³)"}
+    _pol_labels = {"pm25": "PM₂.₅ (µg/m³)", "pm10": "PM₁₀ (µg/m³)", "no2": "NO₂ (µg/m³)", "so2": "SO₂ (µg/m³)", "co": "CO (mg/m³)"}
     for pol, best_model in _lur_best.items():
         r = _lur_raw[pol][best_model]
         _best_rows.append({
@@ -1408,7 +1422,7 @@ not just near existing monitoring stations.
         "XGBoost":          "#e74c3c",
     }
 
-    for pol in ["pm25", "pm10", "no2"]:
+    for pol in ["pm25", "pm10", "no2", "so2", "co"]:
         st.markdown(f"**{_pol_labels[pol]}**")
         _c1, _c2 = st.columns(2)
         _rmse_vals_lur = [_lur_raw[pol][m]["rmse"] for m in _lur_models]
@@ -1498,6 +1512,22 @@ not just near existing monitoring stations.
             "Task":          "NO₂ concentration prediction",
             "Metric":        "Hold-out RMSE",
             "Best RMSE":     "10.5 µg/m³",
+            "Data needed":   "GIS land-use + temporal features",
+            "Can extrapolate?": "✅ Yes (any location with GIS data)",
+        },
+        {
+            "Method":        "LUR — SO₂ (RandomForest)",
+            "Task":          "SO₂ concentration prediction",
+            "Metric":        "Hold-out RMSE",
+            "Best RMSE":     "10.45 µg/m³",
+            "Data needed":   "GIS land-use + temporal features",
+            "Can extrapolate?": "✅ Yes (any location with GIS data)",
+        },
+        {
+            "Method":        "LUR — CO (ElasticNet)",
+            "Task":          "CO concentration prediction",
+            "Metric":        "Hold-out RMSE",
+            "Best RMSE":     "0.42 mg/m³",
             "Data needed":   "GIS land-use + temporal features",
             "Can extrapolate?": "✅ Yes (any location with GIS data)",
         },
