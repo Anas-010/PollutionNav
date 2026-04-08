@@ -1,0 +1,30 @@
+# ── Core Data Science ─────────────────────────────────────────────────────────
+numpy
+pandas
+scipy
+scikit-learn
+statsmodels
+
+# ── Visualisation ─────────────────────────────────────────────────────────────
+matplotlib
+seaborn
+plotly
+
+# ── Geospatial ────────────────────────────────────────────────────────────────
+geopandas
+osmnx
+shapely
+folium
+
+# ── Streamlit App ─────────────────────────────────────────────────────────────
+streamlit
+streamlit-folium
+
+# ── ML / Boosting (LUR models) ────────────────────────────────────────────────
+xgboost
+
+# ── HTTP / Networking ─────────────────────────────────────────────────────────
+requests
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+tqdm
